@@ -68,7 +68,7 @@
 ### 配置步骤（详细版）
 
 1. **下载项目**：
-   - git clone ****
+   - git clone git@github.com:Shengwang-Community/Voip-wxapp-demo.git
 
 2. **导入项目**：
    - 打开微信开发者工具
