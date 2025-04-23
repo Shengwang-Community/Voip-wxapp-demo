@@ -1,0 +1,38 @@
+<block wx:if="{{!isWmpf}}">
+  <mp-cells title="授权设备" ext-class="auth">
+    <mp-cell title="授权人">
+      <input model:value="{{name}}" placeholder="请输入用户名，如：爸爸" />
+    </mp-cell>
+    <mp-cell title="设备 SN">
+      <input model:value="{{sn}}" placeholder="请输入授权设备 sn" />
+    </mp-cell>
+    <mp-cell title="payload">
+      <input model:value="{{payload}}" placeholder="请输入payload" maxlength="-1" />
+    </mp-cell>
+    <view style="padding: 10rpx;">
+      <switch checked="{{callerCameraStatus == 0}}" bindchange="onCallerCameraStatusChange">callerCameraStatus</switch>
+    </view>
+    <view style="padding: 10rpx;">
+      <switch checked="{{listenerCameraStatus == 0}}" bindchange="onListenerCameraStatusChange">listenerCameraStatus</switch>
+    </view>
+  </mp-cells>
+  <view wx:if="{{openid}}">登录成功 openid: {{openid}}</view>
+  <button type="primary" bind:tap="login">登录</button>
+  <button type="primary" bind:tap="authorizeIot">授 权</button>
+  <button type="primary" bind:tap="call">call</button>
+</block>
+<block wx:else>
+  <mp-cells title="授权设备" ext-class="auth">
+    <mp-cell title="设备 SN" value="{{sn}}">
+      <image slot="footer" src="../assets/index_qr.png" class="qr-code-img" />
+    </mp-cell>
+  </mp-cells>
+
+</block>
+
+<mp-cells title="VoIP 设备授权状态" wx:if="{{!isWmpf && voipDevices.length > 0}}">
+  <mp-cell wx:for="{{voipDevices}}" wx:key="sn" value="{{item.sn}}" footer="{{item.status === 1 ? '已授权' : '已拒绝'}}">
+  </mp-cell>
+</mp-cells>
+
+<button bind:tap="gotoCallPage">去通话</button>
