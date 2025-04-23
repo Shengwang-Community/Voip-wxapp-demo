@@ -27,6 +27,7 @@ Page({
     voipDevices: [],
     callerCameraStatus: CameraStatus.OPEN,
     listenerCameraStatus: CameraStatus.OPEN,
+    payload: {},
   },
   onLoad() {
     if (!isWmpf) {
@@ -83,7 +84,7 @@ Page({
       const res = await promisify(wx.getDeviceVoIPList, {})
       console.log(`getDeviceVoIPList: `, res)
 
-      const payload = {
+      const defaultPayload = {
         "agoraVoIP": {
           "trigger": "MiniApp",
           "transmission": {
@@ -108,7 +109,8 @@ Page({
           }
         },
         listenerCameraStatus: this.data.listenerCameraStatus,
-        callerCameraStatus: this.data.callerCameraStatus
+        callerCameraStatus: this.data.callerCameraStatus,
+        ...payload,
       }
 
       const options = {
